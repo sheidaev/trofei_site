@@ -30,7 +30,7 @@
                 while ($row = $stmt->fetch()) {
                     echo "<div class='trophy-card'>
                         <a href='product.php?id={$row['id']}'>
-                            <img src='" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['name']) . "'>
+                            <img src='images/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['name']) . "'>
                             <div class='trophy-name'>" . htmlspecialchars($row['name']) . "</div>
                         </a>
                         <div class='trophy-price'>Ціна: {$row['price']} грн</div>
