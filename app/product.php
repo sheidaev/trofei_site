@@ -82,7 +82,7 @@ if (!empty($product['category'])) {
             <?php foreach ($similar as $sim): ?>
                 <div class="similar-card">
                     <a href="product.php?id=<?=$sim['id']?>">
-                        <img src="<?=htmlspecialchars(explode(',', $sim['image'])[0])?>" alt="<?=htmlspecialchars($sim['name'])?>">
+                        <img src="images/<?=htmlspecialchars(trim(explode(',', $sim['image'])[0]))?>" alt="<?=htmlspecialchars($sim['name'])?>">
                         <div class="trophy-name"><?=htmlspecialchars($sim['name'])?></div>
                         <div class="trophy-price">Ціна: <?=number_format($sim['price'],2)?> грн</div>
                     </a>
