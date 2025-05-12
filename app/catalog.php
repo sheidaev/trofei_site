@@ -64,45 +64,7 @@ if ($cartCount > 0) {
             </form>
         </aside>
         <section class="catalog-list">
-            <div class="trophies-list">
-                <?php
-                // Тут логіка фільтрації та сортування
-                $where = [];
-                $params = [];
-                if (!empty($_GET['category'])) {
-                    $in = implode(',', array_fill(0, count($_GET['category']), '?'));
-                    $where[] = 'category IN (' . $in . ')';
-                    $params = array_merge($params, $_GET['category']);
-                }
-                if (!empty($_GET['source'])) {
-                    $in = implode(',', array_fill(0, count($_GET['source']), '?'));
-                    $where[] = 'source IN (' . $in . ')';
-                    $params = array_merge($params, $_GET['source']);
-                }
-                if (!empty($_GET['color'])) {
-                    $in = implode(',', array_fill(0, count($_GET['color']), '?'));
-                    $where[] = 'color IN (' . $in . ')';
-                    $params = array_merge($params, $_GET['color']);
-                }
-                $sql = 'SELECT * FROM products';
-                if ($where) $sql .= ' WHERE ' . implode(' AND ', $where);
-                if (!empty($_GET['sort'])) {
-                    if ($_GET['sort'] == 'price_asc') $sql .= ' ORDER BY price ASC';
-                    if ($_GET['sort'] == 'price_desc') $sql .= ' ORDER BY price DESC';
-                }
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute($params);
-                while ($row = $stmt->fetch()) {
-                    echo "<div class='trophy-card'>
-                        <a href='product.php?id={$row['id']}'>
-                            <img src='images/{$row['image']}' alt='{$row['name']}'>
-                            <div class='trophy-name'>{$row['name']}</div>
-                        </a>
-                        <div class='trophy-price'>Ціна: {$row['price']} грн</div>
-                    </div>";
-                }
-                ?>
-            </div>
+            <div class="trophies-list" id="products-list"></div>
         </section>
     </div>
     <div class="footer">
@@ -120,6 +82,47 @@ if ($cartCount > 0) {
     </div>
 </div>
 <script>
+function getFiltersFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    let url = 'api/products.php?';
+    for (const [key, value] of params.entries()) {
+        if (Array.isArray(value)) {
+            value.forEach(v => url += `${key}[]=${encodeURIComponent(v)}&`);
+        } else {
+            url += `${key}=${encodeURIComponent(value)}&`;
+        }
+    }
+    return url;
+}
+async function loadProducts() {
+    const url = getFiltersFromUrl();
+    const res = await fetch(url);
+    const products = await res.json();
+    const list = document.getElementById('products-list');
+    list.innerHTML = '';
+    if (products.length === 0) {
+        list.innerHTML = '<div style="padding:30px;">Нічого не знайдено.</div>';
+        return;
+    }
+    products.forEach(row => {
+        list.innerHTML += `
+            <div class='trophy-card'>
+                <a href='product.php?id=${row.id}'>
+                    <img src='images/${encodeURIComponent(row.image)}' alt='${escapeHtml(row.name)}'>
+                    <div class='trophy-name'>${escapeHtml(row.name)}</div>
+                </a>
+                <div class='trophy-price'>Ціна: ${row.price} грн</div>
+            </div>
+        `;
+    });
+}
+function escapeHtml(str) {
+    return str.replace(/[&<>'"]/g, t => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'
+    }[t]));
+}
+window.addEventListener('DOMContentLoaded', loadProducts);
+window.addEventListener('popstate', loadProducts);
 document.getElementById('subscribe-form').onsubmit = async function(e) {
     e.preventDefault();
     const form = e.target;

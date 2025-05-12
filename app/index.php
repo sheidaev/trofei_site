@@ -34,20 +34,7 @@ if ($cartCount > 0) {
 
         <div class="trophies-section">
             <div class="trophies-title">Наші трофеї</div>
-            <div class="trophies-list">
-                <?php
-                $stmt = $pdo->query("SELECT * FROM products LIMIT 6");
-                while ($row = $stmt->fetch()) {
-                    echo "<div class='trophy-card'>
-                        <a href='product.php?id={$row['id']}'>
-                            <img src='images/" . htmlspecialchars($row['image']) . "' alt='" . htmlspecialchars($row['name']) . "'>
-                            <div class='trophy-name'>" . htmlspecialchars($row['name']) . "</div>
-                        </a>
-                        <div class='trophy-price'>Ціна: {$row['price']} грн</div>
-                    </div>";
-                }
-                ?>
-            </div>
+            <div class="trophies-list" id="products-list"></div>
         </div>
 
         <div class="footer">
@@ -56,7 +43,6 @@ if ($cartCount > 0) {
                 <span class="footer-payments">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Amex-logo.png" alt="Amex">
                 </span>
             </div>
             <div class="footer-right">
@@ -86,6 +72,29 @@ if ($cartCount > 0) {
         popup.style.display = 'inline-block';
         setTimeout(()=>{ popup.style.display = 'none'; }, 2500);
     };
+    async function loadProducts() {
+        const res = await fetch('api/products.php?limit=6');
+        const products = await res.json();
+        const list = document.getElementById('products-list');
+        list.innerHTML = '';
+        products.forEach(row => {
+            list.innerHTML += `
+                <div class='trophy-card'>
+                    <a href='product.php?id=${row.id}'>
+                        <img src='images/${encodeURIComponent(row.image)}' alt='${escapeHtml(row.name)}'>
+                        <div class='trophy-name'>${escapeHtml(row.name)}</div>
+                    </a>
+                    <div class='trophy-price'>Ціна: ${row.price} грн</div>
+                </div>
+            `;
+        });
+    }
+    function escapeHtml(str) {
+        return str.replace(/[&<>'"]/g, t => ({
+            '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'
+        }[t]));
+    }
+    loadProducts();
     </script>
 </body>
 </html>
