@@ -125,10 +125,27 @@ if (!empty($product['category'])) {
         </div>
         <div class="footer-right">
             <span>Приєднуйтесь до нашої розсилки.</span>
-            <input type="email" placeholder="Введіть імейл">
-            <button>Підписатись</button>
+            <form id="subscribe-form" style="display:flex;gap:10px;position:relative;"><input type="email" name="email" placeholder="Введіть імейл" required><button type="submit">Підписатись</button><span id="subscribe-popup" style="display:none;position:absolute;left:0;top:110%;background:#eaeaea;color:#1976d2;padding:6px 18px;border-radius:6px;font-size:1em;box-shadow:0 2px 8px #0001;white-space:nowrap;z-index:10;"></span></form>
         </div>
     </div>
 </div>
+<script>
+document.getElementById('subscribe-form').onsubmit = async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    const res = await fetch('subscribe.php', {method:'POST', body:data});
+    const json = await res.json();
+    let popup = document.getElementById('subscribe-popup');
+    if(json.success) {
+        popup.textContent = 'Дякуємо за підписку!';
+        form.reset();
+    } else {
+        popup.textContent = json.msg || 'Помилка підписки';
+    }
+    popup.style.display = 'inline-block';
+    setTimeout(()=>{ popup.style.display = 'none'; }, 2500);
+};
+</script>
 </body>
 </html>
