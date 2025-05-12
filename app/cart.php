@@ -75,6 +75,7 @@ if ($cart) {
         <form method="post">
             <button type="submit" name="clear" style="background:#d32f2f;color:#fff;padding:10px 24px;border:none;border-radius:6px;">Очистити кошик</button>
         </form>
+        <form action="checkout.php" method="get" style="margin-top:20px;text-align:right;"><button type="submit" style="background:#1976d2;color:#fff;padding:10px 32px;border:none;border-radius:6px;font-size:1.1em;font-weight:bold;">Оформити замовлення</button></form>
     <?php else: ?>
         <p>Кошик порожній.</p>
     <?php endif; ?>

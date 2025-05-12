@@ -15,6 +15,15 @@ CREATE TABLE subscribers (
     subscribed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    phone VARCHAR(32) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    cart JSONB NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 INSERT INTO products (name, description, price, image, category, source, color) VALUES
 ('Шеврон обісцяної 155 ОМБр', 'Оригінальний шеврон 155-ї окремої мотострілецької бригади, здобутий під час боїв на сході України. Символіка підрозділу, який залишив свою "славу" на українській землі. Стан — бойовий, з характерними слідами використання.', 340.00, 'trophy1.webp', 'Шеврони', 'Полонений', 'Білий'),
 ('Золотий пістолет ослоїоба рамзана', 'Рідкісний екземпляр — пістолет із позолотою, що належав одному з "ослоїобів" рамзана. Символ статусу та марнославства, вилучений у бою.', 350.00, 'trophy2.jpeg', 'Зброя', 'Хороший', 'Чорний'),
