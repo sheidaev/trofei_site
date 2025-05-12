@@ -1,4 +1,6 @@
-<?php include 'db.php'; ?>
+<?php
+session_start();
+include 'db.php'; ?>
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -9,10 +11,18 @@
 <body>
     <div class="main-container">
         <div class="header">
-            <div class="logo">&#11044; trofei.ua</div>
+            <div class="logo"><a href="index.php" style="color:inherit;text-decoration:none;">&#11044; trofei.ua</a></div>
             <div class="header-right">
-                <input class="search" type="text" placeholder="Пошук...">
-                <div class="cart">&#128722; Кошик</div>
+                <form method="get" action="search.php" style="display:inline;"><input class="search" type="text" name="q" placeholder="Пошук..." value="<?=isset($_GET['q']) ? htmlspecialchars($_GET['q']) : ''?>"></form>
+                <div class="cart"><a href="cart.php" style="color:inherit;text-decoration:none;">&#128722; Кошик<?php
+$cartCount = 0;
+if (!empty($_SESSION['cart'])) {
+    foreach ($_SESSION['cart'] as $c) $cartCount += $c;
+}
+if ($cartCount > 0) {
+    echo '<span style="background:#1976d2;color:#fff;border-radius:50%;padding:2px 8px;font-size:0.9em;margin-left:6px;">' . $cartCount . '</span>';
+}
+?></a></div>
             </div>
         </div>
 
@@ -42,7 +52,7 @@
 
         <div class="footer">
             <div class="footer-left">
-                <span>trofei.ua</span>
+                <span><a href="index.php" style="color:inherit;text-decoration:none;">trofei.ua</a></span>
                 <span class="footer-payments">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard">
