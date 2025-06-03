@@ -1,0 +1,23 @@
+{
+  "name": "trofei_site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sheidaev/trofei_site.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sheidaev/trofei_site/issues"
+  },
+  "homepage": "https://github.com/sheidaev/trofei_site#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.27"
+  }
+}
