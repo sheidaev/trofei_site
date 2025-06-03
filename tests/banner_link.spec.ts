@@ -10,3 +10,7 @@ test('Перехід на сторінку каталогу з банеру', as
   // Перевіряємо, що перейшли на сторінку каталогу
   await expect(page).toHaveURL('http://localhost:8080/catalog.php');
 }); 
+
+
+
+
