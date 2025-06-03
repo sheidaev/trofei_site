@@ -64,7 +64,7 @@ if (!empty($product['category'])) {
                 foreach ($_SESSION['cart'] as $c) $cartCount += $c;
             }
             if ($cartCount > 0) {
-                echo '<span style="background:#1976d2;color:#fff;border-radius:50%;padding:2px 8px;font-size:0.9em;margin-left:6px;">' . $cartCount . '</span>';
+                echo '<span id="cart-counter" style="background:#1976d2;color:#fff;border-radius:50%;padding:2px 8px;font-size:0.9em;margin-left:6px;">' . $cartCount . '</span>';
             }
             ?></a></div>
         </div>
@@ -94,7 +94,7 @@ if (!empty($product['category'])) {
             <form class="product-buy" method="post" action="#">
                 <label for="qty">Кількість</label>
                 <input type="number" id="qty" name="qty" value="1" min="1" max="99">
-                <button type="submit">Купити</button>
+                <button type="submit" id="buy-button">Купити</button>
             </form>
             <div class="product-donate">Все піде на донати</div>
         </div>
