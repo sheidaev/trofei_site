@@ -48,8 +48,8 @@ if ($cartCount > 0) {
             <div class="footer-right">
                 <span>Приєднуйтесь до нашої розсилки.</span>
                 <form id="subscribe-form" style="display:flex;gap:10px;position:relative;">
-                    <input type="email" name="email" placeholder="Введіть імейл" required>
-                    <button type="submit">Підписатись</button>
+                    <input type="email" id="subscribe-email" name="email" placeholder="Введіть імейл" required>
+                    <button type="submit" id="subscribe-button">Підписатись</button>
                     <span id="subscribe-popup" style="display:none;position:absolute;left:0;top:110%;background:#eaeaea;color:#1976d2;padding:6px 18px;border-radius:6px;font-size:1em;box-shadow:0 2px 8px #0001;white-space:nowrap;z-index:10;"></span>
                 </form>
             </div>
