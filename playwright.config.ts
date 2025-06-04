@@ -33,48 +33,25 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
 
-  /* Налаштування проєктів для основних браузерів */
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+  {
+    name: 'e2e',
+    testMatch: /.*\.e2e\.spec\.ts/,
+    use: { 
+      ...devices['Desktop Chrome'],
+      baseURL: 'http://localhost:8080',
     },
-
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
-
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
-
-    /* Тестування на мобільних екранах. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Тестування у фірмових браузерах. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
-  ],
-
-  /* Запустити локальний dev-сервер перед стартом тестів */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  },
+  {
+    name: 'integration',
+    testMatch: /.*\.integration\.spec\.ts/,
+    use: { 
+      ...devices['Desktop Chrome'],
+      baseURL: 'http://localhost:8080',
+    },
+  },
+],
 });
+
+
+
