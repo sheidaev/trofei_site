@@ -1,0 +1,34 @@
+{
+    "addToCart": [
+      {
+        "name": "Додавання одного товару в корзину",
+        "productId": 2,
+        "quantity": 1,
+        "expectedCartCount": 1
+      },
+      {
+        "name": "Додавання двох товарів в корзину",
+        "productId": 2,
+        "quantity": 2,
+        "expectedCartCount": 2
+      },
+      {
+        "name": "Додавання п'яти товарів в корзину",
+        "productId": 2,
+        "quantity": 5,
+        "expectedCartCount": 5
+      },
+      {
+        "name": "Додавання десяти товарів в корзину",
+        "productId": 2,
+        "quantity": 10,
+        "expectedCartCount": 10
+      },
+      {
+        "name": "Додавання ста товарів в корзину",
+        "productId": 2,
+        "quantity": 99,
+        "expectedCartCount": 99
+      }
+    ]
+  }
