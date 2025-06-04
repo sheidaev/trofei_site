@@ -1,13 +1,17 @@
 import { test, expect } from '@playwright/test';
+import { TrofeiPage } from '../../PageObjects';
 
 test('Додавання товару в корзину', async ({ page }) => {
+  const Trofei = new TrofeiPage(page);
+  
   // Відкриваємо сторінку трофею
-  await page.goto('http://localhost:8080/product.php?id=2&added=1');
+  await Trofei.goto(2);
 
-  // Знаходимо кнопку "Купити" і клікаємо на неї
-  await page.click('#buy-button');
+  // Додаємо товар в корзину
+  await Trofei.addToCart();
 
-  // Перевіряємо, що біля іконки корзини з'явилась одиниця
-  const cartCounter = page.locator('#cart-counter');
-  await expect(cartCounter).toHaveText('1');
+  // Перевіряємо кількість в корзині
+  await Trofei.expectCartCount(1);
 }); 
+
+
