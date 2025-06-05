@@ -18,6 +18,10 @@
   "homepage": "https://github.com/sheidaev/trofei_site#readme",
   "devDependencies": {
     "@playwright/test": "^1.52.0",
-    "@types/node": "^22.15.27"
+    "@types/node": "^22.15.27",
+    "@types/pg": "^8.15.4"
+  },
+  "dependencies": {
+    "pg": "^8.16.0"
   }
 }

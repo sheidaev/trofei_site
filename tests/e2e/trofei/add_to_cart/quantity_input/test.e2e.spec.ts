@@ -1,25 +1,39 @@
 import { test, expect } from '@playwright/test';
 import { TrofeiPage } from '../../../PageObjects';
 import fixtures from './fixture.json';
+import { DatabaseHelper } from '../../../../helpers/db';
 
-// Отримуємо тестові дані з фікстур
-const testCases = fixtures.addToCart;
+const db = new DatabaseHelper();
+const testCases = fixtures.testCases;
 
-// Створюємо тести на основі фікстур
+test.beforeEach(async () => {
+  await db.connect();
+});
+
+test.afterEach(async () => {
+  await db.rollback();
+  await db.disconnect();
+});
+
 for (const testCase of testCases) {
-  test(testCase.name, async ({ page }) => {
+  test(testCase.testcase_data.name, async ({ page }) => {
     const trofei = new TrofeiPage(page);
     
-    // Відкриваємо сторінку трофею з вказаним ID
-    await trofei.goto(testCase.productId);
+    // Створюємо тестові дані та отримуємо їх ID
+    const insertedIds = await db.insertFixtureData({ db: testCase.db });
+    
+    // Відкриваємо сторінку трофею з ID першого створеного продукту
+    await trofei.goto(insertedIds.products[0]);
 
     // Встановлюємо кількість
-    await trofei.setQuantity(testCase.quantity);
+    await trofei.setQuantity(testCase.testcase_data.quantity);
 
     // Додаємо товар в корзину
     await trofei.addToCart();
 
     // Перевіряємо очікувану кількість в корзині
-    await trofei.expectCartCount(testCase.expectedCartCount);
+    await trofei.expectCartCount(testCase.testcase_data.expectedCartCount);
   });
 } 
+
+

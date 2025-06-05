@@ -1,34 +1,84 @@
 {
-    "addToCart": [
-      {
+  "testCases": [
+    {
+      "db": {
+        "products": [
+          {
+            "name": "Тестовий трофей",
+            "description": "Опис тестового трофею",
+            "price": 340.00,
+            "image": "test_trophy.webp",
+            "category": "Шеврони",
+            "source": "Тестовий",
+            "color": "Білий"
+          }
+        ]
+      },
+      "testcase_data": {
         "name": "Додавання одного товару в корзину",
-        "productId": 2,
         "quantity": 1,
         "expectedCartCount": 1
+      }
+    },
+    {
+      "db": {
+        "products": [
+          {
+            "name": "Тестовий трофей",
+            "description": "Опис тестового трофею",
+            "price": 340.00,
+            "image": "test_trophy.webp",
+            "category": "Шеврони",
+            "source": "Тестовий",
+            "color": "Білий"
+          }
+        ]
       },
-      {
+      "testcase_data": {
         "name": "Додавання двох товарів в корзину",
-        "productId": 2,
         "quantity": 2,
         "expectedCartCount": 2
+      }
+    },
+    {
+      "db": {
+        "products": [
+          {
+            "name": "Тестовий трофей",
+            "description": "Опис тестового трофею",
+            "price": 340.00,
+            "image": "test_trophy.webp",
+            "category": "Шеврони",
+            "source": "Тестовий",
+            "color": "Білий"
+          }
+        ]
       },
-      {
-        "name": "Додавання п'яти товарів в корзину",
-        "productId": 2,
-        "quantity": 5,
-        "expectedCartCount": 5
-      },
-      {
+      "testcase_data": {
         "name": "Додавання десяти товарів в корзину",
-        "productId": 2,
         "quantity": 10,
         "expectedCartCount": 10
+      }
+    },
+    {
+      "db": {
+        "products": [
+          {
+            "name": "Тестовий трофей",
+            "description": "Опис тестового трофею",
+            "price": 340.00,
+            "image": "test_trophy.webp",
+            "category": "Шеврони",
+            "source": "Тестовий",
+            "color": "Білий"
+          }
+        ]
       },
-      {
+      "testcase_data": {
         "name": "Додавання ста товарів в корзину",
-        "productId": 2,
         "quantity": 99,
         "expectedCartCount": 99
       }
-    ]
-  }
+    }
+  ]
+}
