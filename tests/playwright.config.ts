@@ -26,9 +26,7 @@ export default defineConfig({
   reporter: 'html',
   /* Загальні налаштування для всіх проєктів нижче. Дивись https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /* Базова URL-адреса для дій, таких як `await page.goto('/')`. */
-    // baseURL: 'http://localhost:3000',
-
+    baseURL: 'http://nginx',
     /* Збирати trace при повторній спробі невдалого тесту. Дивись https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
@@ -39,7 +37,7 @@ export default defineConfig({
     testMatch: /.*\.e2e\.spec\.ts/,
     use: { 
       ...devices['Desktop Chrome'],
-      baseURL: 'http://localhost:8080',
+      baseURL: 'http://nginx',
     },
   },
   {
@@ -47,7 +45,7 @@ export default defineConfig({
     testMatch: /.*\.integration\.spec\.ts/,
     use: { 
       ...devices['Desktop Chrome'],
-      baseURL: 'http://localhost:8080',
+      baseURL: 'http://nginx',
     },
   },
 ],

@@ -14,7 +14,7 @@ export class TrofeiPage {
 
   // Методи навігації
   async goto(productId: number) {
-    await this.page.goto(`http://localhost:8080/product.php?id=${productId}&added=1`);
+    await this.page.goto(`/product.php?id=${productId}&added=1`);
   }
 
   // Методи взаємодії

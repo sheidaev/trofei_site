@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('Підписка на розсилку', async ({ page }) => {
   // Відкриваємо головну сторінку
-  await page.goto('http://localhost:8080/index.php');
+  await page.goto('/index.php');
 
   // Заповнюємо поле email
   await page.fill('#subscribe-email', 'test@example.com');

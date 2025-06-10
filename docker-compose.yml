@@ -10,6 +10,8 @@ services:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
+    networks:
+      - trofei-network
 
   php:
     build: ./docker/php
@@ -17,13 +19,36 @@ services:
       - ./app:/var/www/html
     depends_on:
       - db
+    networks:
+      - trofei-network
 
   nginx:
     image: nginx:1.25
     ports:
       - "8080:80"
+    expose:
+      - "80"
     volumes:
       - ./app:/var/www/html
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
+    networks:
+      - trofei-network
+
+  tests:
+    build:
+      context: .
+      dockerfile: docker/tests/Dockerfile
+    working_dir: /app/tests
+    command: npx playwright test
+    depends_on:
+      - nginx
+      - php
+      - db
+    networks:
+      - trofei-network
+
+networks:
+  trofei-network:
+    driver: bridge
