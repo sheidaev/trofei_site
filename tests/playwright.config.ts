@@ -13,7 +13,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
 
-  testDir: './tests',
+  testDir: '.',
   /* Запускати тести у файлах паралельно */
   fullyParallel: false,
   /* Завалити збірку на CI, якщо випадково залишився test.only у вихідному коді. */
