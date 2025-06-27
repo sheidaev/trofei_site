@@ -46,7 +46,7 @@ services:
       - ./app:/var/www/html
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-      #- ./docker/nginx/htpasswd:/etc/nginx/htpasswd:ro
+      - ./docker/nginx/htpasswd:/etc/nginx/htpasswd:ro
       - nginx_logs:/var/log/nginx
       - ./ssl:/etc/nginx/ssl:ro
       - certbot_etc:/etc/letsencrypt
