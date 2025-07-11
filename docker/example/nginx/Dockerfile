@@ -5,18 +5,18 @@ RUN apk add --no-cache \
     openssl \
     apache2-utils
 
-# Копіюємо конфігураційні файли
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY default.conf /etc/nginx/conf.d/default.conf
+# Копіюємо конфігураційні файли (виправлені шляхи)
+COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # Копіюємо файл з паролями (якщо потрібно)
-COPY htpasswd /etc/nginx/htpasswd
+COPY docker/nginx/htpasswd /etc/nginx/htpasswd
 
 # Створюємо каталоги для логів
 RUN mkdir -p /var/log/nginx
 
 # Копіюємо код додатку
-COPY ../../app/ /var/www/html/
+COPY app/ /var/www/html/
 
 # Встановлюємо права доступу
 RUN chown -R nginx:nginx /var/www/html \
