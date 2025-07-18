@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   db:
     image: postgres:15
@@ -12,6 +11,8 @@ services:
       - "5432:5432"
     networks:
       - trofei-network
+    profiles:
+      - app
 
   php:
     build: ./docker/php
@@ -21,6 +22,9 @@ services:
       - db
     networks:
       - trofei-network
+    profiles:
+      - app
+
 
   nginx:
     image: nginx:1.25
@@ -35,6 +39,9 @@ services:
       - php
     networks:
       - trofei-network
+    profiles:
+      - app
+
 
   tests:
     build:
@@ -42,12 +49,10 @@ services:
       dockerfile: docker/tests/Dockerfile
     working_dir: /app/tests
     command: npx playwright test
-    depends_on:
-      - nginx
-      - php
-      - db
     networks:
       - trofei-network
+    profiles:
+      - test
 
 networks:
   trofei-network:
