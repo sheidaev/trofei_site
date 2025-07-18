@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <div class="main-container">
     <div class="header">
-        <div class="logo"><a href="index.php" style="color:inherit;text-decoration:none;">&#11044; trofei.ua</a></div>
+        <div class="logo"><a href="index.php" style="color:inherit;text-decoration:none;">🪖 trofei.ua</a></div>
     </div>
     <h1>Оформлення замовлення</h1>
     <?php if (!empty($error)): ?><div style="color:#d32f2f;"><?=$error?></div><?php endif; ?>

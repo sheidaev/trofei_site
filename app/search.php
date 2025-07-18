@@ -20,7 +20,7 @@ if ($q !== '') {
 <body>
 <div class="main-container">
     <div class="header">
-        <div class="logo"><a href="index.php" style="color:inherit;text-decoration:none;">&#11044; trofei.ua</a></div>
+        <div class="logo"><a href="index.php" style="color:inherit;text-decoration:none;">🪖 trofei.ua</a></div>
         <div class="header-right">
             <form method="get" action="search.php" style="display:inline;"><input class="search" type="text" name="q" placeholder="Пошук..." value="<?=htmlspecialchars($q)?>"></form>
             <div class="cart"><a href="cart.php" style="color:inherit;text-decoration:none;">&#128722; Кошик<?php
@@ -58,7 +58,7 @@ if ($q !== '') {
     </div>
     <div class="footer">
         <div class="footer-left">
-            <span><a href="index.php" style="color:inherit;text-decoration:none;">trofei.ua</a></span>
+            <span><a href="index.php" style="color:inherit;text-decoration:none;">🪖 trofei.ua</a></span>
             <span class="footer-payments">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard">
