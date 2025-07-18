@@ -49,6 +49,8 @@ services:
       dockerfile: docker/tests/Dockerfile
     working_dir: /app/tests
     command: npx playwright test
+    volumes:
+      - ./playwright-report:/app/tests/playwright-report
     networks:
       - trofei-network
     profiles:
