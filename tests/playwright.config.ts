@@ -23,7 +23,7 @@ export default defineConfig({
   /* Відмовитись від паралельних тестів на CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Репортер, який використовувати. Дивись https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  //reporter: 'html',
   /* Загальні налаштування для всіх проєктів нижче. Дивись https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: 'http://nginx',

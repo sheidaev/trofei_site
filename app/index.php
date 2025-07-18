@@ -55,6 +55,11 @@ if ($cartCount > 0) {
             </div>
         </div>
     </div>
+    <div id="center-popup" style="display:none;position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:1000;background:rgba(0,0,0,0.25);align-items:center;justify-content:center;">
+  <div style="background:#fff;padding:32px 40px;border-radius:12px;box-shadow:0 4px 32px #0003;font-size:1.2em;color:#1976d2;text-align:center;max-width:90vw;max-height:80vh;overflow:auto;">
+    <span id="center-popup-text"></span>
+  </div>
+</div>
     <script>
     document.getElementById('subscribe-form').onsubmit = async function(e) {
         e.preventDefault();
@@ -62,15 +67,17 @@ if ($cartCount > 0) {
         const data = new FormData(form);
         const res = await fetch('subscribe.php', {method:'POST', body:data});
         const json = await res.json();
-        let popup = document.getElementById('subscribe-popup');
         if(json.success) {
-            popup.textContent = 'Дякуємо за підписку!';
+            document.getElementById('center-popup-text').textContent = 'Дякуємо! Ви будете першим, хто отримає інформацію про новий трофей!';
+            document.getElementById('center-popup').style.display = 'flex';
             form.reset();
+            setTimeout(()=>{ document.getElementById('center-popup').style.display = 'none'; }, 2500);
         } else {
+            let popup = document.getElementById('subscribe-popup');
             popup.textContent = json.msg || 'Помилка підписки';
+            popup.style.display = 'inline-block';
+            setTimeout(()=>{ popup.style.display = 'none'; }, 2500);
         }
-        popup.style.display = 'inline-block';
-        setTimeout(()=>{ popup.style.display = 'none'; }, 2500);
     };
     async function loadProducts() {
         const res = await fetch('api/products.php?limit=6');
