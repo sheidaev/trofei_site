@@ -7,6 +7,7 @@ export class TrofeiPage {
   private readonly buyButton = '#buy-button';
   private readonly quantityInput = '#qty';
   private readonly cartCounter = '#cart-counter';
+  private readonly cartPopup = '#cart-popup';
 
   constructor(page: Page) {
     this.page = page;

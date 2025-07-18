@@ -18,10 +18,10 @@ test.afterEach(async () => {
 for (const testCase of testCases) {
   test(testCase.testcase_data.name, async ({ page }) => {
     const trofei = new TrofeiPage(page);
-    
+
     // Створюємо тестові дані та отримуємо їх ID
     const insertedIds = await db.insertFixtureData({ db: testCase.db });
-    
+
     // Відкриваємо сторінку трофею з ID першого створеного продукту
     await trofei.goto(insertedIds.products[0]);
 
@@ -31,8 +31,13 @@ for (const testCase of testCases) {
     // Додаємо товар в корзину
     await trofei.addToCart();
 
-    // Перевіряємо очікувану кількість в корзині
-    await trofei.expectCartCount(testCase.testcase_data.expectedCartCount);
+    // Перевіряємо, що попап корзини відкрився
+    await expect(page.locator('#cart-popup')).toBeVisible();
+
+    // Перевіряємо очікувану кількість в корзині у попапі
+    await expect(page.locator('#cart-popup-content')).toContainText(
+      `Всього: ${testCase.testcase_data.expectedTotal} грн`
+    );
   });
 } 
 

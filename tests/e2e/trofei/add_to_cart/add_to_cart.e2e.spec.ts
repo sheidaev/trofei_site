@@ -10,8 +10,11 @@ test('Додавання товару в корзину', async ({ page }) => {
   // Додаємо товар в корзину
   await Trofei.addToCart();
 
-  // Перевіряємо кількість в корзині
-  await Trofei.expectCartCount(1);
+  // Перевіряємо, що попап корзини відкрився
+  await expect(page.locator('#cart-popup')).toBeVisible();
+
+  // Перевіряємо, що в попапі відображається правильна сума (наприклад, якщо ціна товару 340 грн)
+  await expect(page.locator('#cart-popup-content')).toContainText('Всього: 350.00 грн');
 }); 
 
 
