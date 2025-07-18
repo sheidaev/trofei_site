@@ -12,7 +12,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['qty'])) {
     } else {
         $_SESSION['cart'][$id] = $qty;
     }
-    // Після додавання можна зробити редірект, щоб уникнути повторного додавання при оновленні сторінки
+    if (isset($_POST['ajax'])) {
+        // Формуємо HTML корзини
+        ob_start();
+        include 'cart_popup.php'; // окремий файл з розміткою корзини
+        $cartHtml = ob_get_clean();
+        echo json_encode(['success' => true, 'html' => $cartHtml]);
+        exit;
+    }
     header('Location: product.php?id=' . $id . '&added=1');
     exit;
 }
@@ -134,6 +141,12 @@ if (!empty($product['category'])) {
     <span id="center-popup-text"></span>
   </div>
 </div>
+<div id="cart-popup" style="display:none;position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:2000;background:rgba(0,0,0,0.25);align-items:center;justify-content:center;">
+  <div style="background:#fff;padding:32px 40px;border-radius:12px;box-shadow:0 4px 32px #0003;max-width:90vw;max-height:80vh;overflow:auto;position:relative;">
+    <button id="close-cart-popup" style="position:absolute;top:10px;right:10px;font-size:1.5em;background:none;border:none;cursor:pointer;">&times;</button>
+    <div id="cart-popup-content"></div>
+  </div>
+</div>
 <script>
 document.getElementById('subscribe-form').onsubmit = async function(e) {
     e.preventDefault();
@@ -152,6 +165,31 @@ document.getElementById('subscribe-form').onsubmit = async function(e) {
         popup.style.display = 'inline-block';
         setTimeout(()=>{ popup.style.display = 'none'; }, 2500);
     }
+};
+
+document.querySelector('.product-buy').onsubmit = async function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    data.append('ajax', '1'); // Позначаємо, що це AJAX-запит
+
+    // Відправляємо POST-запит на додавання в корзину
+    const res = await fetch(window.location.pathname + window.location.search, {
+        method: 'POST',
+        body: data
+    });
+    const json = await res.json();
+
+    // Оновлюємо попап корзини
+    let popup = document.getElementById('cart-popup');
+    let content = document.getElementById('cart-popup-content');
+    content.innerHTML = json.html; // html — це розмітка корзини, яку повертає сервер
+    popup.style.display = 'flex';
+
+    // Закриття попапу
+    document.getElementById('close-cart-popup').onclick = () => {
+        popup.style.display = 'none';
+    };
 };
 </script>
 </body>
