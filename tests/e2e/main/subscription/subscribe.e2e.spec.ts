@@ -11,9 +11,9 @@ test('Підписка на розсилку', async ({ page }) => {
   await page.click('#subscribe-button');
 
   // Перевіряємо, що з'явилось повідомлення про успішну підписку
-  const popup = page.locator('#subscribe-popup');
+  const popup = page.locator('#center-popup');
   await expect(popup).toBeVisible();
-  await expect(popup).toHaveText('Дякуємо за підписку!');
+  await expect(popup).toHaveText('Дякуємо! Ви будете першим, хто отримає інформацію про новий трофей!');
 
   // Перевіряємо, що поле email очистилось
   await expect(page.locator('#subscribe-email')).toHaveValue('');
