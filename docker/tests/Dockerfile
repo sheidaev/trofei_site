@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright:v1.42.1-jammy
+FROM mcr.microsoft.com/playwright:v1.52.0-jammy
 
 WORKDIR /app/tests
 
@@ -9,4 +9,4 @@ COPY ../tests/ ./
 RUN npm install
 
 # Встановлюємо браузери для Playwright
-RUN npx playwright install
+#RUN npx playwright install
